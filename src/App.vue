@@ -140,6 +140,7 @@ export default {
       isLogin: true,
       activeIndex: 0,
       isScrolling: false,
+      touchStartY: 0,
       featured: [
         { addr: '123 Ocean View Drive, Malibu, CA', price: '12,500,000', bed: 6, bath: 7, sqft: '8,200', img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800' },
         { addr: '456 Skyline Tower, New York, NY', price: '9,800,000', bed: 4, bath: 5, sqft: '5,500', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800' },
@@ -154,16 +155,44 @@ export default {
       if (e.deltaY > 0 && this.activeIndex < 2) { this.scrollTo(this.activeIndex + 1); } 
       else if (e.deltaY < 0 && this.activeIndex > 0) { this.scrollTo(this.activeIndex - 1); }
     },
+    handleTouchStart(e) {
+      this.touchStartY = e.touches[0].clientY;
+    },
+    
+    handleTouchEnd(e) {
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = this.touchStartY - touchEndY;
+
+      // If swipe distance is more than 50px, trigger scroll
+      if (Math.abs(deltaY) > 50) {
+        if (deltaY > 0 && this.activeIndex < 2) {
+          // Swiped Up -> Go Down
+          this.scrollTo(this.activeIndex + 1);
+        } else if (deltaY < 0 && this.activeIndex > 0) {
+          // Swiped Down -> Go Up
+          this.scrollTo(this.activeIndex - 1);
+        }
+      }
+    },
+    
     scrollTo(index) {
-      this.isScrolling = true; this.activeIndex = index;
+      if (this.isScrolling) return; // Prevent double trigger
+      this.isScrolling = true; 
+      this.activeIndex = index;
       setTimeout(() => { this.isScrolling = false; }, 1000); 
     }
   },
   mounted() {
     window.addEventListener('wheel', this.handleWheel, { passive: false });
+    // Add these for mobile support:
+    window.addEventListener('touchstart', this.handleTouchStart, { passive: true });
+    window.addEventListener('touchend', this.handleTouchEnd, { passive: true });
   },
   unmounted() {
     window.removeEventListener('wheel', this.handleWheel);
+    // Clean up:
+    window.removeEventListener('touchstart', this.handleTouchStart);
+    window.removeEventListener('touchend', this.handleTouchEnd);
   }
 }
 </script>
