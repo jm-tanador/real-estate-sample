@@ -1,135 +1,135 @@
 <template>
-  <v-app class="page-wrapper-main" :class="{ 'light-mode': !isDarkMode }">
-    <!-- 1. NAVIGATION BAR -->
-    <nav class="navbar" :class="{ 'scrolled': activeIndex > 0 }">
-      <div class="logo">
-        <span class="t-bar"></span>
-        <span class="logo-text-main">REAL ESTATE<span>.</span></span>
-        <span class="logo-sub d-none d-sm-inline">by jmtanador</span>
-      </div>
-
-      <ul class="nav-links d-none d-md-flex">
-        <li :class="{ 'active': activeIndex === 0 }"><a href="#" @click.prevent="scrollTo(0)">Home</a></li>
-        <li :class="{ 'active': activeIndex === 1 }"><a href="#" @click.prevent="scrollTo(1)">Log In</a></li>
-        <li :class="{ 'active': activeIndex === 2 }"><a href="#" @click.prevent="scrollTo(2)">About Us</a></li>
-      </ul>
-
-      <div class="nav-actions d-flex align-center">
-        <!-- THEME TOGGLE SWITCH -->
-        <div class="theme-switch" @click="isDarkMode = !isDarkMode" :class="{ 'is-light': !isDarkMode }">
-          <div class="switch-ball">
-            <v-icon size="14" :icon="isDarkMode ? 'mdi-moon-waning-crescent' : 'mdi-white-balance-sunny'"></v-icon>
-          </div>
-        </div>
-
-        <div class="nav-socials d-none d-sm-flex ml-4">
-          <v-icon class="icon-btn mx-2" icon="mdi-twitter"></v-icon>
-          <v-icon class="icon-btn mx-2" icon="mdi-facebook"></v-icon>
-          <v-icon class="icon-btn-ig mx-2" icon="mdi-instagram"></v-icon>
-        </div>
-      </div>
-    </nav>
-
-    <!-- 2. SMOOTH SLIDER CONTAINER -->
-    <div class="slider-wrapper" :style="{ transform: `translateY(-${activeIndex * 100}vh)` }">
-      
-      <!-- SECTION 1: HOME (IMAGE CONTENT) -->
-      <section class="page-section home-hero-bg">
-        <div class="home-overlay">
-          <div class="home-content-container">
-            <div class="hero-top">
-              <h1>Find Your Future Home</h1>
-              <p class="subtitle">Discover exclusive luxury properties curated for your lifestyle.</p>
-              
-              <!-- Responsive Search Bar -->
-              <div class="search-bar-ui">
-                <div class="search-fields-wrap">
-                  <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
-                  <div class="s-div d-none d-md-block"></div>
-                  <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
-                  <div class="s-div d-none d-md-block"></div>
-                  <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
-                </div>
-                <v-btn class="s-btn" color="#2196f3">Search</v-btn>
-              </div>
+    <v-app class="page-wrapper-main" :class="{ 'light-mode': !isDarkMode }">
+        <!-- 1. NAVIGATION BAR -->
+        <nav class="navbar" :class="{ 'scrolled': activeIndex > 0 }">
+            <div class="logo">
+                <span class="t-bar"></span>
+                <span class="logo-text-main">REAL ESTATE<span>.</span></span>
+                <span class="logo-sub d-none d-sm-inline">by jmtanador</span>
             </div>
 
-            <div class="featured-section">
-              <h3 class="featured-title">Featured Properties</h3>
-              <div class="prop-grid">
-                <div v-for="(p, i) in featured" :key="i" class="prop-card">
-                  <div class="p-img"><img :src="p.img"><div class="p-price">${{p.price}}</div></div>
-                  <div class="p-info">
-                    <p class="p-addr">{{p.addr}}</p>
-                    <div class="p-specs">
-                      <span><v-icon size="14">mdi-bed-outline</v-icon> {{p.bed}}</span>
-                      <span><v-icon size="14">mdi-shower-outline</v-icon> {{p.bath}}</span>
-                      <span><v-icon size="14">mdi-arrow-expand-all</v-icon> {{p.sqft}}</span>
+            <ul class="nav-links d-none d-md-flex">
+                <li :class="{ 'active': activeIndex === 0 }"><a href="#" @click.prevent="scrollTo(0)">Home</a></li>
+                <li :class="{ 'active': activeIndex === 1 }"><a href="#" @click.prevent="scrollTo(1)">Log In</a></li>
+                <li :class="{ 'active': activeIndex === 2 }"><a href="#" @click.prevent="scrollTo(2)">About Us</a></li>
+            </ul>
+
+            <div class="nav-actions d-flex align-center">
+                <!-- THEME TOGGLE SWITCH -->
+                <div class="theme-switch" @click="isDarkMode = !isDarkMode" :class="{ 'is-light': !isDarkMode }">
+                <div class="switch-ball">
+                    <v-icon size="14" :icon="isDarkMode ? 'mdi-moon-waning-crescent' : 'mdi-white-balance-sunny'"></v-icon>
+                </div>
+                </div>
+
+                <div class="nav-socials d-none d-sm-flex ml-4">
+                    <v-icon class="icon-btn mx-2" icon="mdi-twitter"></v-icon>
+                    <v-icon class="icon-btn mx-2" icon="mdi-facebook"></v-icon>
+                    <v-icon class="icon-btn-ig mx-2" icon="mdi-instagram"></v-icon>
+                </div>
+            </div>
+        </nav>
+
+        <!-- 2. SMOOTH SLIDER CONTAINER -->
+        <div class="slider-wrapper" :style="{ transform: `translateY(-${activeIndex * 100}vh)` }">
+        
+        <!-- SECTION 1: HOME (IMAGE CONTENT) -->
+        <section class="page-section home-hero-bg">
+            <div class="home-overlay">
+            <div class="home-content-container">
+                <div class="hero-top">
+                <h1>Find Your Future Home</h1>
+                <p class="subtitle">Discover exclusive luxury properties curated for your lifestyle.</p>
+                
+                <!-- Responsive Search Bar -->
+                <div class="search-bar-ui">
+                    <div class="search-fields-wrap">
+                    <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
+                    <div class="s-div d-none d-md-block"></div>
+                    <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
+                    <div class="s-div d-none d-md-block"></div>
+                    <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
                     </div>
-                  </div>
+                    <v-btn class="s-btn" color="#2196f3">Search</v-btn>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+                </div>
 
-      <!-- SECTION 2: ORIGINAL AUTH (LOGIN/REGISTER) -->
-      <section class="page-section auth-bg">
-        <div class="content-container">
-          <div class="content-inner">
-            <!-- Left Side: Original Hero Text -->
-            <div class="hero-section d-none d-md-block">
-              <p class="tagline">START YOUR JOURNEY</p>
-              <h1>Unlock the homeowner <br /><span class="highlight">inside YOU</span>,<br /> Secure your <br />Dream Property</h1>
-              <p class="subtext">Get started with the most trusted platform to browse, tour, and buy your next home.</p>
-              <div class="hero-btns">
-                <v-btn variant="outlined" class="btn-outline">View Listings</v-btn>
-                <v-btn class="btn-primary glow">Book a tripping</v-btn>
-              </div>
-            </div>
-
-            <!-- Right Side: Original Forms -->
-            <div class="form-section">
-              <transition name="form-fade" mode="out-in">
-                <div v-if="isLogin" class="form-card" key="login">
-                  <h2>Welcome <br />back<span>.</span></h2>
-                  <form @submit.prevent>
-                    <div class="input-group">
-                      <label>Email or Username</label>
-                      <v-text-field placeholder="juandelacruz@gmail.com" variant="outlined" hide-details class="custom-v-input"></v-text-field>
+                <div class="featured-section">
+                <h3 class="featured-title">Featured Properties</h3>
+                <div class="prop-grid">
+                    <div v-for="(p, i) in featured" :key="i" class="prop-card">
+                    <div class="p-img"><img :src="p.img"><div class="p-price">${{p.price}}</div></div>
+                    <div class="p-info">
+                        <p class="p-addr">{{p.addr}}</p>
+                        <div class="p-specs">
+                        <span><v-icon size="14">mdi-bed-outline</v-icon> {{p.bed}}</span>
+                        <span><v-icon size="14">mdi-shower-outline</v-icon> {{p.bath}}</span>
+                        <span><v-icon size="14">mdi-arrow-expand-all</v-icon> {{p.sqft}}</span>
+                        </div>
                     </div>
-                    <div class="input-group">
-                      <label>Password</label>
-                      <v-text-field type="password" variant="outlined" hide-details class="custom-v-input" placeholder="Enter password"></v-text-field>
                     </div>
-                    <p class="login-link">Don't have an account? <a href="#" @click.prevent="isLogin = false">Join now</a></p>
-                    <v-btn block class="btn-submit glow">Login Account</v-btn>
-                  </form>
                 </div>
-                <div v-else class="form-card" key="register">
-                  <h2>Create <br />new account<span>.</span></h2>
-                  <form @submit.prevent>
-                    <div class="input-group"><label>Username</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                    <div class="input-group"><label>Email</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                    <div class="input-group"><label>Password</label><v-text-field type="password" variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                    <p class="login-link">Already have an account? <a href="#" @click.prevent="isLogin = true">Log In</a></p>
-                    <v-btn block class="btn-submit glow">Create Account</v-btn>
-                  </form>
                 </div>
-              </transition>
             </div>
-          </div>
-        </div>
-      </section>
+            </div>
+        </section>
 
-      <!-- SECTION 3: ABOUT -->
-      <section class="page-section about-bg align-center">
-          <h1 class="text-h2 font-weight-bold">About Us</h1>
-          <p class="subtext mt-4">Luxury real estate redefined.</p>
-      </section>
-    </div>
-  </v-app>
+        <!-- SECTION 2: ORIGINAL AUTH (LOGIN/REGISTER) -->
+        <section class="page-section auth-bg">
+            <div class="content-container">
+            <div class="content-inner">
+                <!-- Left Side: Original Hero Text -->
+                <div class="hero-section d-none d-md-block">
+                <p class="tagline">START YOUR JOURNEY</p>
+                <h1>Unlock the homeowner <br /><span class="highlight">inside YOU</span>,<br /> Secure your <br />Dream Property</h1>
+                <p class="subtext">Get started with the most trusted platform to browse, tour, and buy your next home.</p>
+                <div class="hero-btns">
+                    <v-btn variant="outlined" class="btn-outline">View Listings</v-btn>
+                    <v-btn class="btn-primary glow">Book a tripping</v-btn>
+                </div>
+                </div>
+
+                <!-- Right Side: Original Forms -->
+                <div class="form-section">
+                <transition name="form-fade" mode="out-in">
+                    <div v-if="isLogin" class="form-card" key="login">
+                    <h2>Welcome <br />back<span>.</span></h2>
+                    <form @submit.prevent>
+                        <div class="input-group">
+                        <label>Email or Username</label>
+                        <v-text-field placeholder="juandelacruz@gmail.com" variant="outlined" hide-details class="custom-v-input"></v-text-field>
+                        </div>
+                        <div class="input-group">
+                        <label>Password</label>
+                        <v-text-field type="password" variant="outlined" hide-details class="custom-v-input" placeholder="Enter password"></v-text-field>
+                        </div>
+                        <p class="login-link">Don't have an account? <a href="#" @click.prevent="isLogin = false">Join now</a></p>
+                        <v-btn block class="btn-submit glow">Login Account</v-btn>
+                    </form>
+                    </div>
+                    <div v-else class="form-card" key="register">
+                    <h2>Create <br />new account<span>.</span></h2>
+                    <form @submit.prevent>
+                        <div class="input-group"><label>Username</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                        <div class="input-group"><label>Email</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                        <div class="input-group"><label>Password</label><v-text-field type="password" variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                        <p class="login-link">Already have an account? <a href="#" @click.prevent="isLogin = true">Log In</a></p>
+                        <v-btn block class="btn-submit glow">Create Account</v-btn>
+                    </form>
+                    </div>
+                </transition>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: ABOUT -->
+        <section class="page-section about-bg align-center">
+            <h1 class="text-h2 font-weight-bold">About Us</h1>
+            <p class="subtext mt-4">Luxury real estate redefined.</p>
+        </section>
+        </div>
+    </v-app>
 </template>
 
 <script>
@@ -314,40 +314,76 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 }
 .subtitle { color: var(--subtext-color); font-size: clamp(14px, 3vw, 16px); margin-top: 10px; }
 
-/* RESPONSIVE SEARCH BAR */
+/* 1. MOBILE FIRST (Default) */
 .search-bar-ui {
   background: var(--card-bg);
   border: 1px solid rgba(128,128,128,0.2); 
-  padding: 20px; /* Increased padding */
+  padding: 15px;
   border-radius: 15px;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px; /* Increased for desktop */
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Stack vertically on mobile */
   gap: 10px;
-  margin-top: 20px;
+  margin: 30px auto 0 auto;
+}
+
+.search-fields-wrap {
+  display: flex;
+  flex-direction: column; /* Stack fields vertically on mobile */
+  gap: 10px;
+  flex: 1;
 }
 
 .s-item {
-  padding: 12px 5px; /* Better tap target for mobile */
+  padding: 10px 5px;
   font-size: 14px;
   color: var(--subtext-color);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid rgba(128,128,128,0.1);
 }
 
-/* Remove border from the last item before the button */
-.search-fields-wrap .s-item:last-child {
-  border-bottom: none;
+/* 2. DESKTOP VIEW (Refined) */
+@media (min-width: 960px) {
+  .search-bar-ui {
+    flex-direction: row; /* Horizontal on desktop */
+    border-radius: 100px; /* Pill shape */
+    padding: 8px 8px 8px 30px;
+    height: 70px;
+    align-items: center;
+  }
+
+  .search-fields-wrap {
+    flex-direction: row; /* Horizontal fields */
+    align-items: center;
+    gap: 0;
+  }
+
+  .s-item {
+    border-bottom: none; /* Remove mobile lines */
+    padding: 0 30px;
+    border-right: 1px solid rgba(128,128,128,0.2); /* Add vertical dividers */
+    height: 30px;
+    white-space: nowrap;
+  }
+
+  .s-item:last-child {
+    border-right: none; /* Remove last divider */
+  }
+
+  .s-btn {
+    border-radius: 50px !important;
+    height: 54px !important;
+    width: 160px;
+    margin-left: 20px;
+    font-size: 16px !important;
+  }
 }
 .s-div { width: 1px; height: 25px; background: rgba(128,128,128,0.2); }
 .s-btn { text-transform: none !important; font-weight: 700 !important; height: 45px !important; border-radius: 10px !important; }
-
-@media (min-width: 768px) {
-  .search-bar-ui { flex-direction: row; border-radius: 50px; padding: 6px 6px 6px 25px; }
-  .search-fields-wrap { flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; }
-  .s-item { border-bottom: none; padding: 0; }
-  .s-btn { border-radius: 30px !important; width: 140px; }
-}
 
 /* PROPERTY GRID */
 .featured-section { width: 100%; }
