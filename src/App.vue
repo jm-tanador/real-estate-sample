@@ -124,8 +124,8 @@
       </section>
 
       <!-- SECTION 3: ABOUT -->
-      <section class="page-section about-bg">
-          <h1 class="text-h4 text-md-h2 font-weight-bold">About Us</h1>
+      <section class="page-section about-bg align-center">
+          <h1 class="text-h2 font-weight-bold">About Us</h1>
           <p class="subtext mt-4">Luxury real estate redefined.</p>
       </section>
     </div>
