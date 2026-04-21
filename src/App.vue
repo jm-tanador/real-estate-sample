@@ -246,7 +246,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 .icon-btn:hover { color: #2196f3; }
 
 /* --- HOME VIEW (FITTED) --- */
-.home-hero-bg { background: url('https://images.unsplash.com/photo-1600607687940-4e524cb35a36?w=1920') no-repeat center/cover; }
+.home-hero-bg { background-color: var(--card-bg); background-image: url('https://i.pinimg.com/1200x/c5/72/5d/c5725d1afc3a4a5c95f707fe2c172a02.jpg'); background-size: cover; transition: background-color 0.5s; }
 .home-overlay { width: 100%; height: 100%; background: var(--grad-home); display: flex; align-items: center; justify-content: center; transition: background 0.5s; }
 .home-content { width: 85%; max-width: 1200px; height: 82%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
 .hero-top { text-align: center; }
@@ -283,7 +283,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 .p-specs { display: flex; gap: 12px; font-size: 11px; color: #2196f3; font-weight: 600; }
 
 /* --- AUTH VIEW --- */
-.auth-bg { background-color: var(--bg-color); background-image: url('images/login-bg.jpg'); background-size: cover; transition: 0.5s; }
+.auth-bg { background-color: var(--card-bg); background-image: url('https://i.pinimg.com/1200x/ef/bd/b9/efbdb90f1eec6d70b1cd9e02cf8bca8f.jpg'); background-size: cover; transition: background-color 0.5s; }
 .auth-bg::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--grad-auth); transition: 0.5s; }
 .content-container { position: relative; z-index: 5; width: 100%; }
 .content-inner { display: flex; align-items: center; justify-content: center; gap: 80px; width: 100%; }
