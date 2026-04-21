@@ -1,12 +1,11 @@
 <template>
-  <!-- Ensure the light-mode class is at the very top -->
   <v-app class="page-wrapper-main" :class="{ 'light-mode': !isDarkMode }">
-    <!-- Navigation Bar -->
+    <!-- 1. NAVIGATION BAR -->
     <nav class="navbar" :class="{ 'scrolled': activeIndex > 0 }">
       <div class="logo">
         <span class="t-bar"></span>
-        <!-- Added a specific class to the logo text to ensure it's always readable -->
         <span class="logo-text-main">REAL ESTATE<span>.</span></span>
+        <span class="logo-sub d-none d-sm-inline">by jmtanador</span>
       </div>
 
       <ul class="nav-links d-none d-md-flex">
@@ -15,15 +14,15 @@
         <li :class="{ 'active': activeIndex === 2 }"><a href="#" @click.prevent="scrollTo(2)">About Us</a></li>
       </ul>
 
-      <div class="nav-actions d-none d-md-flex align-center">
-        <!-- THEME SWITCH -->
+      <div class="nav-actions d-flex align-center">
+        <!-- THEME TOGGLE SWITCH -->
         <div class="theme-switch" @click="isDarkMode = !isDarkMode" :class="{ 'is-light': !isDarkMode }">
           <div class="switch-ball">
             <v-icon size="14" :icon="isDarkMode ? 'mdi-moon-waning-crescent' : 'mdi-white-balance-sunny'"></v-icon>
           </div>
         </div>
 
-        <div class="nav-socials ml-4">
+        <div class="nav-socials d-none d-sm-flex ml-4">
           <v-icon class="icon-btn mx-2" icon="mdi-twitter"></v-icon>
           <v-icon class="icon-btn mx-2" icon="mdi-facebook"></v-icon>
           <v-icon class="icon-btn-ig mx-2" icon="mdi-instagram"></v-icon>
@@ -31,32 +30,37 @@
       </div>
     </nav>
 
+    <!-- 2. SMOOTH SLIDER CONTAINER -->
     <div class="slider-wrapper" :style="{ transform: `translateY(-${activeIndex * 100}vh)` }">
       
-      <!-- SECTION 1: HOME (FITTED) -->
+      <!-- SECTION 1: HOME (IMAGE CONTENT) -->
       <section class="page-section home-hero-bg">
         <div class="home-overlay">
-          <div class="home-content">
+          <div class="home-content-container">
             <div class="hero-top">
               <h1>Find Your Future Home</h1>
-              <p>Discover exclusive luxury properties curated for your lifestyle.</p>
+              <p class="subtitle">Discover exclusive luxury properties curated for your lifestyle.</p>
+              
+              <!-- Responsive Search Bar -->
               <div class="search-bar-ui">
-                <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
-                <div class="s-div"></div>
-                <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
-                <div class="s-div"></div>
-                <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
+                <div class="search-fields-wrap">
+                  <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
+                  <div class="s-div d-none d-md-block"></div>
+                  <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
+                  <div class="s-div d-none d-md-block"></div>
+                  <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
+                </div>
                 <v-btn class="s-btn" color="#2196f3">Search</v-btn>
               </div>
             </div>
 
-            <div class="featured-properties-row">
-              <h3>Featured Properties</h3>
+            <div class="featured-section">
+              <h3 class="featured-title">Featured Properties</h3>
               <div class="prop-grid">
                 <div v-for="(p, i) in featured" :key="i" class="prop-card">
                   <div class="p-img"><img :src="p.img"><div class="p-price">${{p.price}}</div></div>
                   <div class="p-info">
-                    <p>{{p.addr}}</p>
+                    <p class="p-addr">{{p.addr}}</p>
                     <div class="p-specs">
                       <span><v-icon size="14">mdi-bed-outline</v-icon> {{p.bed}}</span>
                       <span><v-icon size="14">mdi-shower-outline</v-icon> {{p.bath}}</span>
@@ -70,11 +74,12 @@
         </div>
       </section>
 
-      <!-- SECTION 2: LOGIN/REGISTER -->
+      <!-- SECTION 2: ORIGINAL AUTH (LOGIN/REGISTER) -->
       <section class="page-section auth-bg">
         <div class="content-container">
           <div class="content-inner">
-            <div class="hero-section">
+            <!-- Left Side: Original Hero Text -->
+            <div class="hero-section d-none d-md-block">
               <p class="tagline">START YOUR JOURNEY</p>
               <h1>Unlock the homeowner <br /><span class="highlight">inside YOU</span>,<br /> Secure your <br />Dream Property</h1>
               <p class="subtext">Get started with the most trusted platform to browse, tour, and buy your next home.</p>
@@ -84,6 +89,7 @@
               </div>
             </div>
 
+            <!-- Right Side: Original Forms -->
             <div class="form-section">
               <transition name="form-fade" mode="out-in">
                 <div v-if="isLogin" class="form-card" key="login">
@@ -117,8 +123,9 @@
         </div>
       </section>
 
+      <!-- SECTION 3: ABOUT -->
       <section class="page-section about-bg">
-          <h1 class="text-h2 font-weight-bold">About Us</h1>
+          <h1 class="text-h4 text-md-h2 font-weight-bold">About Us</h1>
           <p class="subtext mt-4">Luxury real estate redefined.</p>
       </section>
     </div>
@@ -143,15 +150,12 @@ export default {
   methods: {
     handleWheel(e) {
       if (this.isScrolling) return;
-      if (e.deltaY > 30 && this.activeIndex < 2) {
-        this.scrollTo(this.activeIndex + 1);
-      } else if (e.deltaY < -30 && this.activeIndex > 0) {
-        this.scrollTo(this.activeIndex - 1);
-      }
+      if (Math.abs(e.deltaY) < 30) return;
+      if (e.deltaY > 0 && this.activeIndex < 2) { this.scrollTo(this.activeIndex + 1); } 
+      else if (e.deltaY < 0 && this.activeIndex > 0) { this.scrollTo(this.activeIndex - 1); }
     },
     scrollTo(index) {
-      this.isScrolling = true;
-      this.activeIndex = index;
+      this.isScrolling = true; this.activeIndex = index;
       setTimeout(() => { this.isScrolling = false; }, 1000); 
     }
   },
@@ -165,34 +169,24 @@ export default {
 </script>
 
 <style>
-/* GLOBAL SCROLLBAR HIDE */
+/* GLOBAL STYLES */
 html, body {
-  margin: 0; padding: 0; overflow: hidden !important;
+  margin: 0 !important; padding: 0 !important; overflow: hidden !important;
   height: 100%; width: 100%; scrollbar-width: none; -ms-overflow-style: none; 
 }
-html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; height: 0 !important; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; }
 
-/* --- THEME VARIABLES --- */
+/* THEME VARIABLES */
 :root {
-  --bg-color: #000;
-  --text-color: #ffffff;
-  --subtext-color: #aaaaaa;
-  --card-bg: #1a1c23;
-  --input-bg: rgba(42, 45, 55, 0.6);
-  --nav-bg: rgba(10, 11, 14, 0.9);
-  /* Dark Mode Gradient (Black fade) */
-  --grad-home: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,1) 95%);
-  --grad-auth: linear-gradient(90deg, rgba(20, 22, 28, 0.75) 0%, rgba(0,0,0,1) 100%);
+  --bg-color: #0c0e12; --text-color: #ffffff; --subtext-color: #aaaaaa;
+  --card-bg: #16181d; --input-bg: rgba(42, 45, 55, 0.6); --nav-bg: rgba(10, 11, 14, 0.9);
+  --grad-home: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(12,14,18,1) 95%);
+  --grad-auth: linear-gradient(90deg, rgba(20, 22, 28, 0.75) 0%, rgba(12,14,18,1) 100%);
 }
 .light-mode {
-  --bg-color: #f4f7f9;
-  --text-color: #1a1c23;
-  --subtext-color: #555555;
-  --card-bg: #ffffff;
-  --input-bg: #e2e5e9;
-  --nav-bg: rgba(255, 255, 255, 0.9);
-  /* Light Mode Gradient (White fade - LOWER OPACITY AT TOP TO SEE IMAGE) */
-  --grad-home: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(244,247,249,1) 95%);
+  --bg-color: #f4f7f9; --text-color: #1a1c23; --subtext-color: #555555;
+  --card-bg: #ffffff; --input-bg: #e2e5e9; --nav-bg: rgba(255, 255, 255, 0.9);
+  --grad-home: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(244,247,249,1) 95%);
   --grad-auth: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 0%, rgba(244,247,249,1) 100%);
 }
 
@@ -200,13 +194,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
   background: var(--bg-color) !important;
   color: var(--text-color) !important;
   transition: background 0.5s ease, color 0.5s ease;
-  width: 100vw; /* Ensure full width */
 }
 
-/* Switch UI */
+/* CUSTOM SWITCH */
 .theme-switch {
   width: 54px; height: 28px; background: #2a2d37; border-radius: 20px;
-  position: relative; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
+  position: relative; cursor: pointer; border: 1px solid rgba(255,255,255,0.1);
 }
 .theme-switch.is-light { background: #2196f3; border-color: #2196f3; }
 .switch-ball {
@@ -220,92 +213,101 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
 
-.page-wrapper-main { font-family: 'Poppins', sans-serif !important; overflow: hidden; }
+.page-wrapper-main { font-family: 'Poppins', sans-serif !important; overflow: hidden; height: 100vh; }
 
 .slider-wrapper {
-  height: 100vh; width: 100%; transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1); will-change: transform;
+  height: 100vh; width: 100%;
+  transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+  will-change: transform;
 }
-.page-section { height: 100vh; width: 100%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
 
-/* --- NAVBAR --- */
+.page-section { 
+  height: 100vh; width: 100%; 
+  display: flex; justify-content: center; 
+  position: relative; overflow-y: auto; overflow-x: hidden;
+}
+.page-section::-webkit-scrollbar { display: none; }
+
+/* NAVBAR */
 .navbar {
-    position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 35px 8%; transition: 0.5s ease; background: transparent;
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 15px 5%; transition: 0.5s ease; background: var(--nav-bg); backdrop-filter: blur(10px);
 }
-.navbar.scrolled { padding: 15px 8%; background: var(--nav-bg); backdrop-filter: blur(15px); }
-.logo { font-size: 24px; font-weight: 700; position: relative; color: var(--text-color); display: flex; align-items: center;}
-.logo-text-main { color: var(--text-color); transition: 0.3s; }
-.logo-text-main span { color: #2196f3; }
-.t-bar { width: 14px; height: 4px; background: #2196f3; position: absolute; left: -2px; top: 15px; }
+@media (min-width: 960px) { .navbar { padding: 30px 8%; background: transparent; } .navbar.scrolled { padding: 15px 8%; background: var(--nav-bg); } }
 
-.nav-links { list-style: none; display: flex; gap: 40px; }
-.nav-links a { color: var(--subtext-color); text-decoration: none; font-size: 14px; font-weight: 600; transition: 0.3s; }
+.logo-text-main { font-size: clamp(16px, 4vw, 24px); font-weight: 700; color: var(--text-color); }
+.logo-text-main span { color: #2196f3; }
+.logo-sub { font-size: 11px; color: white; margin-left: 8px; margin-top: 5px; opacity: 5.8; }
+/* .t-bar { width: 14px; height: 4px; background: #2196f3; position: absolute; left: 122px; top: 47px; } */
+
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links a { color: var(--subtext-color); text-decoration: none; font-size: 14px; font-weight: 600; }
 .nav-links li.active a { color: var(--text-color); border-bottom: 2px solid #2196f3; padding-bottom: 5px; }
 .icon-btn, .icon-btn-ig { color: var(--subtext-color); cursor: pointer; transition: 0.3s; }
 .icon-btn:hover { color: #2196f3; }
 
-/* --- HOME VIEW (FITTED) --- */
-.home-hero-bg { background-color: var(--card-bg); background-image: url('https://i.pinimg.com/1200x/c5/72/5d/c5725d1afc3a4a5c95f707fe2c172a02.jpg'); background-size: cover; transition: background-color 0.5s; }
-.home-overlay { width: 100%; height: 100%; background: var(--grad-home); display: flex; align-items: center; justify-content: center; transition: background 0.5s; }
-.home-content { width: 85%; max-width: 1200px; height: 82%; display: flex; flex-direction: column; justify-content: space-between; align-items: center; }
+/* HOME CONTENT */
+.home-hero-bg { background: url('https://i.pinimg.com/1200x/c5/72/5d/c5725d1afc3a4a5c95f707fe2c172a02.jpg') no-repeat center/cover; }
+.home-overlay { width: 100%; min-height: 100%; background: var(--grad-home); display: flex; align-items: center; justify-content: center; padding: 100px 0 40px 0; }
+.home-content-container { width: 90%; max-width: 1200px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+
 .hero-top { text-align: center; }
-.hero-top h1 { font-size: clamp(34px, 6vh, 56px); font-weight: 700; margin-bottom: 5px; color: var(--text-color);}
-.hero-top p { color: var(--subtext-color); margin-bottom: 20px; font-size: 16px; }
+.hero-top h1 { font-size: clamp(30px, 7vw, 56px); font-weight: 700; line-height: 1.1; color: var(--text-color); }
+.subtitle { color: var(--subtext-color); font-size: clamp(14px, 3vw, 16px); margin-top: 10px; }
 
-/* Search Bar (Added background for light mode readability) */
-.search-bar-ui { 
-  background: rgba(255,255,255,0.06); 
-  backdrop-filter: blur(15px); 
-  border-radius: 12px; 
-  border: 1px solid rgba(255,255,255,0.1); 
-  padding: 8px; 
-  display: inline-flex; 
-  align-items: center; 
-  gap: 10px; 
+/* RESPONSIVE SEARCH BAR */
+.search-bar-ui {
+  background: var(--card-bg); border: 1px solid rgba(128,128,128,0.2); 
+  padding: 15px; border-radius: 15px; width: 100%; max-width: 800px;
+  display: flex; flex-direction: column; gap: 15px; margin-top: 30px;
 }
-.light-mode .search-bar-ui { 
-  background: rgba(255,255,255,0.8); 
-  border: 1px solid rgba(0,0,0,0.05); 
-}
-.s-item { padding: 0 15px; font-size: 13px; color: var(--subtext-color); cursor: pointer; display: flex; gap: 5px; }
-.s-div { width: 1px; height: 20px; background: rgba(128,128,128,0.2); }
-.s-btn { text-transform: none !important; font-weight: 700 !important; border-radius: 8px !important; }
+.search-fields-wrap { display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.s-item { padding: 5px 0; font-size: 13px; color: var(--subtext-color); cursor: pointer; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(128,128,128,0.1); }
+.s-div { width: 1px; height: 25px; background: rgba(128,128,128,0.2); }
+.s-btn { text-transform: none !important; font-weight: 700 !important; height: 45px !important; border-radius: 10px !important; }
 
-.featured-properties-row h3 { text-align: center; font-size: 22px; margin-bottom: 15px; color: var(--text-color);}
-.prop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+@media (min-width: 768px) {
+  .search-bar-ui { flex-direction: row; border-radius: 50px; padding: 6px 6px 6px 25px; }
+  .search-fields-wrap { flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; }
+  .s-item { border-bottom: none; padding: 0; }
+  .s-btn { border-radius: 30px !important; width: 140px; }
+}
+
+/* PROPERTY GRID */
+.featured-section { width: 100%; }
+.featured-title { text-align: center; font-size: 24px; margin-bottom: 20px; color: var(--text-color); }
+.prop-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 768px) { .prop-grid { grid-template-columns: repeat(3, 1fr); } }
+
 .prop-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid rgba(128,128,128,0.1); transition: 0.5s; }
-.p-img { position: relative; height: clamp(130px, 17vh, 170px); }
+.p-img { position: relative; height: clamp(140px, 20vh, 180px); }
 .p-img img { width: 100%; height: 100%; object-fit: cover; }
 .p-price { position: absolute; top: 12px; right: 12px; background: #2196f3; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 12px; color: white;}
 .p-info { padding: 15px; text-align: left;}
-.p-info p { font-size: 13px; color: var(--text-color); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.p-specs { display: flex; gap: 12px; font-size: 11px; color: #2196f3; font-weight: 600; }
+.p-addr { font-size: 14px; font-weight: 600; color: var(--text-color); margin-bottom: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.p-specs { display: flex; gap: 12px; font-size: 12px; color: #2196f3; font-weight: 600; }
 
-/* --- AUTH VIEW --- */
-.auth-bg { background-color: var(--card-bg); background-image: url('https://i.pinimg.com/1200x/ef/bd/b9/efbdb90f1eec6d70b1cd9e02cf8bca8f.jpg'); background-size: cover; transition: background-color 0.5s; }
+/* AUTH VIEW */
+.auth-bg { background: url('https://i.pinimg.com/1200x/ef/bd/b9/efbdb90f1eec6d70b1cd9e02cf8bca8f.jpg') no-repeat center/cover; }
 .auth-bg::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--grad-auth); transition: 0.5s; }
-.content-container { position: relative; z-index: 5; width: 100%; }
-.content-inner { display: flex; align-items: center; justify-content: center; gap: 80px; width: 100%; }
-.hero-section { flex: 0 1 550px; text-align: left;}
-.form-section { flex: 0 1 420px; min-height: 550px; position: relative; }
+.content-container { position: relative; z-index: 5; width: 100%; display: flex; align-items: center; justify-content: center; padding: 100px 0 40px 0; }
+.content-inner { display: flex; align-items: center; justify-content: center; gap: 80px; width: 90%; max-width: 1100px; }
 
+.hero-section { flex: 0 1 550px; text-align: left; }
 .hero-section h1 { font-size: 52px; line-height: 1.1; margin-bottom: 20px; font-weight: 700; color: var(--text-color);}
 .tagline { letter-spacing: 3px; font-size: 13px; margin-bottom: 10px; color: var(--subtext-color); font-weight: 600; }
 .highlight { color: #2196f3; }
 .subtext { color: var(--subtext-color); font-size: 15px; line-height: 1.7; margin-bottom: 35px; }
+.hero-btns { display: flex; gap: 15px; }
 
-.form-card h2 { font-size: 40px; margin-bottom: 30px; line-height: 1.1; color: var(--text-color);}
+.form-section { flex: 0 1 420px; width: 100%; max-width: 420px; }
+.form-card h2 { font-size: clamp(32px, 5vw, 40px); margin-bottom: 30px; line-height: 1.1; color: var(--text-color);}
 .form-card h2 span { color: #2196f3; }
+.input-group { margin-bottom: 15px; text-align: left; }
 .input-group label { display: block; font-size: 10px; color: #2196f3; margin-bottom: 5px; font-weight: 700; text-transform: uppercase; }
 
-.custom-v-input :deep(.v-field) {
-    background: var(--input-bg) !important;
-    border-radius: 12px !important;
-    border: 1px solid rgba(128,128,128,0.1) !important;
-    height: 50px !important;
-    color: var(--text-color);
-}
+.custom-v-input :deep(.v-field) { background: var(--input-bg) !important; border-radius: 12px !important; border: 1px solid rgba(128,128,128,0.1) !important; height: 50px !important; color: var(--text-color); }
 .custom-v-input :deep(.v-field__outline) { display: none; }
 
 .btn-primary { background: #2196f3 !important; color: white !important; height: 48px !important; padding: 0 35px !important; border-radius: 30px !important; font-weight: 600 !important; text-transform: none !important; }
@@ -316,10 +318,14 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 .login-link { text-align: right; font-size: 13px; color: var(--subtext-color); margin: 10px 0 25px 0; }
 .login-link a { color: #2196f3; text-decoration: none; font-weight: 600; }
 
-.about-bg { background: var(--bg-color); flex-direction: column; color: var(--text-color); transition: background 0.5s; }
+.form-fade-enter-active, .form-fade-leave-active { transition: all 0.3s ease; }
+.form-fade-enter-from { opacity: 0; transform: translateX(15px); }
+.form-fade-leave-to { opacity: 0; transform: translateX(-15px); }
+
+/* ABOUT VIEW */
+.about-bg { background: var(--bg-color); flex-direction: column; color: var(--text-color); justify-content: center; }
 
 @media (max-width: 1000px) {
-  .content-inner { flex-direction: column; text-align: center; gap: 40px; }
-  .prop-grid { grid-template-columns: 1fr; }
+  .content-inner { flex-direction: column; text-align: center; }
 }
 </style>
