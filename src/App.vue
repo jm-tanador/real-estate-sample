@@ -250,10 +250,17 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
   will-change: transform;
 }
 
-.page-section { 
-  height: 100vh; width: 100%; 
-  display: flex; justify-content: center; 
-  position: relative; overflow-y: auto; overflow-x: hidden;
+/* Fix for mobile viewport height */
+.page-section {
+  height: 100vh;
+  /* Use svh (Small Viewport Height) if browser supports it */
+  height: 100svh; 
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-y: auto; /* Crucial: allows scrolling inside the section */
+  -webkit-overflow-scrolling: touch;
 }
 .page-section::-webkit-scrollbar { display: none; }
 
@@ -278,21 +285,60 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 
 /* HOME CONTENT */
 .home-hero-bg { background: url('https://i.pinimg.com/1200x/c5/72/5d/c5725d1afc3a4a5c95f707fe2c172a02.jpg') no-repeat center/cover; }
-.home-overlay { width: 100%; min-height: 100%; background: var(--grad-home); display: flex; align-items: center; justify-content: center; padding: 100px 0 40px 0; }
+.home-overlay {
+  width: 100%;
+  min-height: 100%;
+  background: var(--grad-home);
+  display: flex;
+  align-items: flex-start; /* Changed from center to start */
+  justify-content: center;
+  padding: 80px 0 40px 0; /* Reduced top padding for mobile */
+  overflow-y: auto; /* Allow internal scrolling if content is too tall */
+}
+
+@media (min-width: 960px) {
+  .home-overlay {
+    align-items: center; /* Back to center for desktop */
+    padding: 100px 0 40px 0;
+  }
+}
 .home-content-container { width: 90%; max-width: 1200px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
 
 .hero-top { text-align: center; }
-.hero-top h1 { font-size: clamp(30px, 7vw, 56px); font-weight: 700; line-height: 1.1; color: var(--text-color); }
+.hero-top h1 {
+  font-size: clamp(28px, 8vw, 56px); /* Lowered the minimum size */
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-color);
+  padding: 0 10px;
+}
 .subtitle { color: var(--subtext-color); font-size: clamp(14px, 3vw, 16px); margin-top: 10px; }
 
 /* RESPONSIVE SEARCH BAR */
 .search-bar-ui {
-  background: var(--card-bg); border: 1px solid rgba(128,128,128,0.2); 
-  padding: 15px; border-radius: 15px; width: 100%; max-width: 800px;
-  display: flex; flex-direction: column; gap: 15px; margin-top: 30px;
+  background: var(--card-bg);
+  border: 1px solid rgba(128,128,128,0.2); 
+  padding: 20px; /* Increased padding */
+  border-radius: 15px;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
 }
-.search-fields-wrap { display: flex; flex-direction: column; gap: 10px; flex: 1; }
-.s-item { padding: 5px 0; font-size: 13px; color: var(--subtext-color); cursor: pointer; display: flex; justify-content: space-between; border-bottom: 1px solid rgba(128,128,128,0.1); }
+
+.s-item {
+  padding: 12px 5px; /* Better tap target for mobile */
+  font-size: 14px;
+  color: var(--subtext-color);
+  border-bottom: 1px solid rgba(128,128,128,0.1);
+}
+
+/* Remove border from the last item before the button */
+.search-fields-wrap .s-item:last-child {
+  border-bottom: none;
+}
 .s-div { width: 1px; height: 25px; background: rgba(128,128,128,0.2); }
 .s-btn { text-transform: none !important; font-weight: 700 !important; height: 45px !important; border-radius: 10px !important; }
 
@@ -310,7 +356,17 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 @media (min-width: 768px) { .prop-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .prop-card { background: var(--card-bg); border-radius: 16px; overflow: hidden; border: 1px solid rgba(128,128,128,0.1); transition: 0.5s; }
-.p-img { position: relative; height: clamp(140px, 20vh, 180px); }
+.p-img {
+  position: relative;
+  /* Adjust height: Smaller on mobile, larger on desktop */
+  height: 160px; 
+}
+
+@media (min-width: 768px) {
+  .p-img {
+    height: 180px;
+  }
+}
 .p-img img { width: 100%; height: 100%; object-fit: cover; }
 .p-price { position: absolute; top: 12px; right: 12px; background: #2196f3; padding: 4px 10px; border-radius: 6px; font-weight: 700; font-size: 12px; color: white;}
 .p-info { padding: 15px; text-align: left;}
