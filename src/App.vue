@@ -36,41 +36,58 @@
         <!-- SECTION 1: HOME (IMAGE CONTENT) -->
         <section class="page-section home-hero-bg">
             <div class="home-overlay">
-            <div class="home-content-container">
-                <div class="hero-top">
-                <h1>Find Your Future Home</h1>
-                <p class="subtitle">Discover exclusive luxury properties curated for your lifestyle.</p>
-                
-                <!-- Responsive Search Bar -->
-                <div class="search-bar-ui">
-                    <div class="search-fields-wrap">
-                    <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
-                    <div class="s-div d-none d-md-block"></div>
-                    <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
-                    <div class="s-div d-none d-md-block"></div>
-                    <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
+                <div class="home-content-container">
+                    <div class="hero-top">
+                    <h1>Find Your Future Home</h1>
+                    <p class="subtitle">Discover exclusive luxury properties curated for your lifestyle.</p>
+                    
+                    <!-- Responsive Search Bar -->
+                    <div class="search-bar-ui">
+                        <div class="search-fields-wrap">
+                        <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
+                        <div class="s-div d-none d-md-block"></div>
+                        <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
+                        <div class="s-div d-none d-md-block"></div>
+                        <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
+                        </div>
+                        <v-btn class="s-btn" color="#2196f3">Search</v-btn>
                     </div>
-                    <v-btn class="s-btn" color="#2196f3">Search</v-btn>
-                </div>
-                </div>
+                    </div>
 
-                <div class="featured-section">
-                <h3 class="featured-title">Featured Properties</h3>
-                <div class="prop-grid">
-                    <div v-for="(p, i) in featured" :key="i" class="prop-card">
-                    <div class="p-img"><img :src="p.img"><div class="p-price">${{p.price}}</div></div>
-                    <div class="p-info">
-                        <p class="p-addr">{{p.addr}}</p>
-                        <div class="p-specs">
-                        <span><v-icon size="14">mdi-bed-outline</v-icon> {{p.bed}}</span>
-                        <span><v-icon size="14">mdi-shower-outline</v-icon> {{p.bath}}</span>
-                        <span><v-icon size="14">mdi-arrow-expand-all</v-icon> {{p.sqft}}</span>
+                    <div class="featured-section">
+                        <h3 class="featured-title">Featured Properties</h3>
+                        <div class="prop-grid">
+                            <div v-for="(p, i) in featured" :key="i" class="prop-card">
+                                <div class="p-img">
+                                    <img :src="p.img">
+                                    <div class="p-price">${{p.price}}</div>
+                                </div>
+                                <div class="p-info">
+                                    <p class="p-addr">{{p.addr}}</p>
+                                    <!-- Updated Specs Layout -->
+                                    <div class="p-specs">
+                                        <div class="spec-item">
+                                            <v-icon size="24">mdi-bed-outline</v-icon>
+                                            <span>{{p.bed}} Beds</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <v-icon size="24">mdi-shower</v-icon>
+                                            <span>{{p.bath}} Baths</span>
+                                        </div>
+                                        <div class="spec-item">
+                                            <v-icon size="24">mdi-arrow-expand-all</v-icon>
+                                            <span>{{p.sqft}} Sq Ft</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Optional Pagination Dots for Mobile -->
+                        <div class="mobile-dots d-md-none">
+                            <span v-for="n in featured.length" :key="n" :class="{'active-dot': n-1 === 0}"></span>
                         </div>
                     </div>
-                    </div>
                 </div>
-                </div>
-            </div>
             </div>
         </section>
 
@@ -473,5 +490,102 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 
 @media (max-width: 1000px) {
   .content-inner { flex-direction: column; text-align: center; }
+}
+
+/* --- MOBILE SLIDER LOGIC --- */
+@media (max-width: 767px) {
+  .prop-grid {
+    display: flex !important; /* Switch from grid to flex */
+    overflow-x: auto !important; /* Enable horizontal scroll */
+    scroll-snap-type: x mandatory; /* Makes cards "snap" into place */
+    gap: 15px;
+    padding: 10px 20px 20px 20px; /* Space for the "peek" effect */
+    scrollbar-width: none; /* Hide scrollbar Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar IE */
+  }
+
+  .prop-grid::-webkit-scrollbar {
+    display: none; /* Hide scrollbar Chrome/Safari */
+  }
+
+  .prop-card {
+    flex: 0 0 85%; /* Shows 85% of the card, leaving 15% for the next card to peek */
+    scroll-snap-align: center; /* Centers the card when scrolling */
+    margin-bottom: 5px;
+  }
+
+  .p-info {
+    padding: 20px 15px;
+  }
+
+  .p-addr {
+    font-size: 18px !important;
+    white-space: normal !important; /* Allow address to wrap to 2 lines like image */
+    margin-bottom: 20px !important;
+  }
+
+  /* Vertical Icons styling */
+  .p-specs {
+    display: flex;
+    justify-content: space-around;
+    border-top: 1px solid rgba(128,128,128,0.1);
+    padding-top: 15px;
+    gap: 0 !important;
+  }
+
+  .spec-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--subtext-color);
+  }
+
+  .spec-item span {
+    font-size: 12px;
+    font-weight: 400;
+  }
+
+  .spec-item .v-icon {
+    color: var(--subtext-color); /* Grey icons like image */
+  }
+
+  /* Simple Pagination Dots */
+  .mobile-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .mobile-dots span {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(128,128,128,0.3);
+  }
+  .mobile-dots .active-dot {
+    background: #2196f3;
+    width: 20px; /* Pill shape for active dot */
+    border-radius: 10px;
+  }
+}
+
+/* --- DESKTOP VIEW (Restore original grid) --- */
+@media (min-width: 768px) {
+  .prop-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  
+  /* Keep icons horizontal on desktop if you prefer */
+  .p-specs {
+    display: flex;
+    gap: 15px;
+  }
+  .spec-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
 }
 </style>
