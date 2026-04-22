@@ -56,7 +56,7 @@
 
                     <div class="featured-section">
                         <h3 class="featured-title">Featured Properties</h3>
-                        <div class="prop-grid">
+                        <div class="prop-grid" ref="propertyGrid" @scroll="onPropertyScroll">
                             <div v-for="(p, i) in featured" :key="i" class="prop-card">
                                 <div class="p-img">
                                     <img :src="p.img">
@@ -84,7 +84,11 @@
                         </div>
                         <!-- Optional Pagination Dots for Mobile -->
                         <div class="mobile-dots d-md-none">
-                            <span v-for="n in featured.length" :key="n" :class="{'active-dot': n-1 === 0}"></span>
+                            <span 
+                            v-for="(n, i) in featured" 
+                            :key="i" 
+                            :class="{'active-dot': i === activePropIndex}"
+                            ></span>
                         </div>
                     </div>
                 </div>
@@ -158,6 +162,7 @@ export default {
       activeIndex: 0,
       isScrolling: false,
       touchStartY: 0,
+      activePropIndex: 0,
       featured: [
         { addr: '123 Ocean View Drive, Malibu, CA', price: '12,500,000', bed: 6, bath: 7, sqft: '8,200', img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800' },
         { addr: '456 Skyline Tower, New York, NY', price: '9,800,000', bed: 4, bath: 5, sqft: '5,500', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800' },
@@ -191,7 +196,21 @@ export default {
         }
       }
     },
-    
+    onPropertyScroll(e) {
+        // Only run this logic on mobile
+        if (window.innerWidth < 768) {
+            const container = e.target;
+            const scrollLeft = container.scrollLeft;
+            const itemWidth = container.querySelector('.prop-card').offsetWidth + 15; // card width + gap
+            
+            // Calculate which index we are at
+            const newIndex = Math.round(scrollLeft / itemWidth);
+            
+            if (this.activePropIndex !== newIndex) {
+                this.activePropIndex = newIndex;
+            }
+        }
+    },
     scrollTo(index) {
       if (this.isScrolling) return; // Prevent double trigger
       this.isScrolling = true; 
@@ -502,6 +521,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
     padding: 10px 20px 20px 20px; /* Space for the "peek" effect */
     scrollbar-width: none; /* Hide scrollbar Firefox */
     -ms-overflow-style: none; /* Hide scrollbar IE */
+    touch-action: pan-x;
   }
 
   .prop-grid::-webkit-scrollbar {
@@ -587,5 +607,20 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
     align-items: center;
     gap: 5px;
   }
+}
+
+/* Update your existing mobile-dots CSS */
+.mobile-dots span {
+  width: 8px; 
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(128,128,128,0.3);
+  transition: all 0.3s ease; /* Makes the dot change look smooth */
+}
+
+.mobile-dots .active-dot {
+  background: #2196f3 !important;
+  width: 22px !important; /* Becomes a pill shape */
+  border-radius: 10px !important;
 }
 </style>
