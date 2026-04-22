@@ -363,7 +363,24 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
     padding: 100px 0 40px 0;
   }
 }
-.home-content-container { width: 90%; max-width: 1200px; display: flex; flex-direction: column; gap: 40px; align-items: center; }
+.home-content-container { 
+  width: 90%; 
+  max-width: 1200px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 40px; /* Desktop gap */
+  align-items: center; 
+}
+
+@media (max-width: 767px) {
+  .home-content-container { 
+    gap: 15px; /* Reduce gap significantly on mobile */
+  }
+  
+  .home-overlay {
+    padding: 70px 0 20px 0; /* Tighten top/bottom padding */
+  }
+}
 
 .hero-top { text-align: center; }
 .hero-top h1 {
@@ -372,6 +389,56 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
   line-height: 1.2;
   color: var(--text-color);
   padding: 0 10px;
+}
+@media (max-width: 767px) {
+  .hero-top h1 {
+    font-size: 24px !important; /* Smaller title */
+    line-height: 1.1;
+  }
+  .subtitle {
+    font-size: 13px !important;
+    margin-top: 5px;
+  }
+  .search-bar-ui {
+    margin: 15px auto 0 auto !important; /* Reduce margin from 30px to 15px */
+    padding: 10px !important;
+  }
+  .s-item {
+    padding: 8px 5px !important; /* Tighter search fields */
+    font-size: 13px !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .featured-title {
+    font-size: 18px !important; /* Smaller "Featured Properties" text */
+    margin-bottom: 10px !important;
+  }
+
+  .p-img {
+    height: 130px !important; /* Shrink image height from 160px to 130px */
+  }
+
+  .p-info {
+    padding: 12px 15px !important; /* Tighten info area */
+  }
+
+  .p-addr {
+    font-size: 15px !important; /* Smaller address */
+    margin-bottom: 12px !important;
+  }
+
+  .p-specs {
+    padding-top: 10px !important; /* Less space above icons */
+  }
+
+  .spec-item {
+    gap: 4px !important; /* Tighter icons and text */
+  }
+
+  .spec-item .v-icon {
+    font-size: 20px !important; /* Smaller icons */
+  }
 }
 .subtitle { color: var(--subtext-color); font-size: clamp(14px, 3vw, 16px); margin-top: 10px; }
 
