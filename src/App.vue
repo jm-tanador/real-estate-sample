@@ -5,7 +5,7 @@
             <div class="logo">
                 <span class="t-bar"></span>
                 <span class="logo-text-main">REAL ESTATE<span>.</span></span>
-                <span class="logo-sub d-none d-sm-inline">by jmtanador</span>
+                <span class="logo-sub">by jmtanador</span>
             </div>
 
             <ul class="nav-links d-none d-md-flex">
@@ -22,7 +22,7 @@
                 </div>
                 </div>
 
-                <div class="nav-socials d-none d-sm-flex ml-4">
+                <div class="nav-socials d-flex ml-2 ml-sm-4">
                     <v-icon class="icon-btn mx-2" icon="mdi-twitter"></v-icon>
                     <v-icon class="icon-btn mx-2" icon="mdi-facebook"></v-icon>
                     <v-icon class="icon-btn-ig mx-2" icon="mdi-instagram"></v-icon>
@@ -77,49 +77,49 @@
         <!-- SECTION 2: ORIGINAL AUTH (LOGIN/REGISTER) -->
         <section class="page-section auth-bg">
             <div class="content-container">
-            <div class="content-inner">
-                <!-- Left Side: Original Hero Text -->
-                <div class="hero-section d-none d-md-block">
-                <p class="tagline">START YOUR JOURNEY</p>
-                <h1>Unlock the homeowner <br /><span class="highlight">inside YOU</span>,<br /> Secure your <br />Dream Property</h1>
-                <p class="subtext">Get started with the most trusted platform to browse, tour, and buy your next home.</p>
-                <div class="hero-btns">
-                    <v-btn variant="outlined" class="btn-outline">View Listings</v-btn>
-                    <v-btn class="btn-primary glow">Book a tripping</v-btn>
-                </div>
-                </div>
+                <div class="content-inner">
+                    <!-- Left Side: Original Hero Text -->
+                    <div class="hero-section d-none d-md-block">
+                        <p class="tagline">START YOUR JOURNEY</p>
+                        <h1>Unlock the homeowner <br /><span class="highlight">inside YOU</span>,<br /> Secure your <br />Dream Property</h1>
+                        <p class="subtext">Get started with the most trusted platform to browse, tour, and buy your next home.</p>
+                        <div class="hero-btns">
+                            <v-btn variant="outlined" class="btn-outline">View Listings</v-btn>
+                            <v-btn class="btn-primary glow">Book a tripping</v-btn>
+                        </div>
+                    </div>
 
-                <!-- Right Side: Original Forms -->
-                <div class="form-section">
-                <transition name="form-fade" mode="out-in">
-                    <div v-if="isLogin" class="form-card" key="login">
-                    <h2>Welcome <br />back<span>.</span></h2>
-                    <form @submit.prevent>
-                        <div class="input-group">
-                        <label>Email or Username</label>
-                        <v-text-field placeholder="juandelacruz@gmail.com" variant="outlined" hide-details class="custom-v-input"></v-text-field>
-                        </div>
-                        <div class="input-group">
-                        <label>Password</label>
-                        <v-text-field type="password" variant="outlined" hide-details class="custom-v-input" placeholder="Enter password"></v-text-field>
-                        </div>
-                        <p class="login-link">Don't have an account? <a href="#" @click.prevent="isLogin = false">Join now</a></p>
-                        <v-btn block class="btn-submit glow">Login Account</v-btn>
-                    </form>
+                    <!-- Right Side: Original Forms -->
+                    <div class="form-section">
+                        <transition name="form-fade" mode="out-in">
+                            <div v-if="isLogin" class="form-card" key="login">
+                                <h2>Welcome <br />back<span>.</span></h2>
+                                <form @submit.prevent>
+                                    <div class="input-group">
+                                    <label>Email or Username</label>
+                                    <v-text-field placeholder="juandelacruz@gmail.com" variant="outlined" hide-details class="custom-v-input"></v-text-field>
+                                    </div>
+                                    <div class="input-group">
+                                    <label>Password</label>
+                                    <v-text-field type="password" variant="outlined" hide-details class="custom-v-input" placeholder="Enter password"></v-text-field>
+                                    </div>
+                                    <p class="login-link">Don't have an account? <a href="#" @click.prevent="isLogin = false">Join now</a></p>
+                                    <v-btn block class="btn-submit glow">Login Account</v-btn>
+                                </form>
+                            </div>
+                            <div v-else class="form-card" key="register">
+                                <h2>Create <br />new account<span>.</span></h2>
+                                <form @submit.prevent>
+                                    <div class="input-group"><label>Username</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                                    <div class="input-group"><label>Email</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                                    <div class="input-group"><label>Password</label><v-text-field type="password" variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                                    <p class="login-link">Already have an account? <a href="#" @click.prevent="isLogin = true">Log In</a></p>
+                                    <v-btn block class="btn-submit glow">Create Account</v-btn>
+                                </form>
+                            </div>
+                        </transition>
                     </div>
-                    <div v-else class="form-card" key="register">
-                    <h2>Create <br />new account<span>.</span></h2>
-                    <form @submit.prevent>
-                        <div class="input-group"><label>Username</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                        <div class="input-group"><label>Email</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                        <div class="input-group"><label>Password</label><v-text-field type="password" variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                        <p class="login-link">Already have an account? <a href="#" @click.prevent="isLogin = true">Log In</a></p>
-                        <v-btn block class="btn-submit glow">Create Account</v-btn>
-                    </form>
-                    </div>
-                </transition>
                 </div>
-            </div>
             </div>
         </section>
 
@@ -275,6 +275,31 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 .logo-text-main { font-size: clamp(16px, 4vw, 24px); font-weight: 700; color: var(--text-color); }
 .logo-text-main span { color: #2196f3; }
 .logo-sub { font-size: 11px; color: white; margin-left: 8px; margin-top: 5px; opacity: 5.8; }
+
+/* Ensure the logo area doesn't wrap or get too big on mobile */
+.logo {
+  display: flex;
+  align-items: baseline;
+  white-space: nowrap;
+}
+
+/* Adjust social icons for mobile so they don't take up too much room */
+@media (max-width: 600px) {
+  .logo-text-main {
+    font-size: 18px; /* Slightly smaller logo text */
+  }
+  .logo-sub {
+    font-size: 9px;
+    margin-left: 4px;
+  }
+  .nav-socials .v-icon {
+    font-size: 18px !important; /* Smaller icons on mobile */
+    margin: 0 4px !important;   /* Reduce spacing between icons */
+  }
+  .theme-switch {
+    transform: scale(0.8); /* Shrink the switch slightly */
+  }
+}
 /* .t-bar { width: 14px; height: 4px; background: #2196f3; position: absolute; left: 122px; top: 47px; } */
 
 .nav-links { list-style: none; display: flex; gap: 30px; }
