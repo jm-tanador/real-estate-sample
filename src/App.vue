@@ -38,20 +38,20 @@
             <div class="home-overlay">
                 <div class="home-content-container">
                     <div class="hero-top">
-                    <h1>Find Your Future Home</h1>
-                    <p class="subtitle">Discover exclusive luxury properties curated for your lifestyle.</p>
-                    
-                    <!-- Responsive Search Bar -->
-                    <div class="search-bar-ui">
-                        <div class="search-fields-wrap">
-                        <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
-                        <div class="s-div d-none d-md-block"></div>
-                        <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
-                        <div class="s-div d-none d-md-block"></div>
-                        <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
+                        <h1>Find Your Future Home<span>.</span></h1>
+                        <p class="subtitle">Discover exclusive luxury properties curated for your lifestyle.</p>
+                        
+                        <!-- Responsive Search Bar -->
+                        <div class="search-bar-ui">
+                            <div class="search-fields-wrap">
+                            <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
+                            <div class="s-div d-none d-md-block"></div>
+                            <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
+                            <div class="s-div d-none d-md-block"></div>
+                            <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
+                            </div>
+                            <v-btn class="s-btn" color="#2196f3">Search</v-btn>
                         </div>
-                        <v-btn class="s-btn" color="#2196f3">Search</v-btn>
-                    </div>
                     </div>
 
                     <div class="featured-section">
@@ -306,6 +306,18 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
   display: flex; align-items: center; justify-content: space-between;
   padding: 15px 5%; transition: 0.5s ease; background: var(--nav-bg); backdrop-filter: blur(10px);
 }
+@media (min-width: 960px) {
+  .content-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 80px;
+    width: 90%;
+    max-width: 1100px;
+    /* Optional: Push down slightly to account for fixed navbar height */
+    margin-top: 60px; 
+  }
+}
 @media (min-width: 960px) { .navbar { padding: 30px 8%; background: transparent; } .navbar.scrolled { padding: 15px 8%; background: var(--nav-bg); } }
 
 .logo-text-main { font-size: clamp(16px, 4vw, 24px); font-weight: 700; color: var(--text-color); }
@@ -383,6 +395,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 }
 
 .hero-top { text-align: center; }
+.hero-top h1 span { color: #2196f3; }
 .hero-top h1 {
   font-size: clamp(28px, 8vw, 56px); /* Lowered the minimum size */
   font-weight: 700;
@@ -507,11 +520,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
     height: 54px !important;
     width: 160px;
     margin-left: 20px;
+    margin-right: 5px;
     font-size: 16px !important;
   }
 }
 .s-div { width: 1px; height: 25px; background: rgba(128,128,128,0.2); }
-.s-btn { text-transform: none !important; font-weight: 700 !important; height: 45px !important; border-radius: 10px !important; }
+.s-btn { text-transform: none !important; font-weight: 700 !important; height: 45px !important; border-radius: 20px !important; }
 
 /* PROPERTY GRID */
 .featured-section { width: 100%; }
@@ -540,7 +554,18 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
 /* AUTH VIEW */
 .auth-bg { background: url('https://i.pinimg.com/1200x/ef/bd/b9/efbdb90f1eec6d70b1cd9e02cf8bca8f.jpg') no-repeat center/cover; }
 .auth-bg::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: var(--grad-auth); transition: 0.5s; }
-.content-container { position: relative; z-index: 5; width: 100%; display: flex; align-items: center; justify-content: center; padding: 100px 0 40px 0; }
+.content-container {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  /* Change: Use flex-grow to fill the section height */
+  flex: 1; 
+  display: flex;
+  align-items: center; /* Vertically centers the content-inner */
+  justify-content: center;
+  /* Change: Remove the 100px top padding */
+  padding: 20px 0; 
+}
 .content-inner { display: flex; align-items: center; justify-content: center; gap: 80px; width: 90%; max-width: 1100px; }
 
 .hero-section { flex: 0 1 550px; text-align: left; }
@@ -588,7 +613,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !impo
     padding: 10px 20px 20px 20px; /* Space for the "peek" effect */
     scrollbar-width: none; /* Hide scrollbar Firefox */
     -ms-overflow-style: none; /* Hide scrollbar IE */
-    touch-action: pan-x;
+    /* touch-action: pan-x; */
   }
 
   .prop-grid::-webkit-scrollbar {
