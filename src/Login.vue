@@ -1,168 +1,168 @@
 <template>
-  <v-app class="page-wrapper-main" :class="{ 'light-mode': !isDarkMode }">
-    <!-- Navigation Bar -->
-    <nav class="navbar" :class="{ 'scrolled': activeIndex > 0 }">
-      <div class="logo">
-        <span class="t-bar"></span>
-        <span class="logo-text">REAL ESTATE<span>.</span></span>
-      </div>
-
-      <ul class="nav-links d-none d-md-flex">
-        <li :class="{ 'active': activeIndex === 0 }"><a href="#" @click.prevent="scrollTo(0)">Home</a></li>
-        <li :class="{ 'active': activeIndex === 1 }"><a href="#" @click.prevent="scrollTo(1)">Log In</a></li>
-        <li :class="{ 'active': activeIndex === 2 }"><a href="#" @click.prevent="scrollTo(2)">About Us</a></li>
-      </ul>
-
-      <!-- Navbar Actions -->
-      <div class="nav-actions d-none d-md-flex align-center">
-        <!-- THEME SWITCH -->
-        <div class="theme-switch" @click="isDarkMode = !isDarkMode" :class="{ 'is-light': !isDarkMode }">
-          <div class="switch-ball">
-            <v-icon size="14" :icon="isDarkMode ? 'mdi-moon-waning-crescent' : 'mdi-white-balance-sunny'"></v-icon>
-          </div>
-        </div>
-
-        <div class="nav-socials ml-4">
-          <v-icon class="icon-btn mx-2" icon="mdi-twitter"></v-icon>
-          <v-icon class="icon-btn mx-2" icon="mdi-facebook"></v-icon>
-          <v-icon class="icon-btn-ig mx-2" icon="mdi-instagram"></v-icon>
-        </div>
-      </div>
-    </nav>
-
-    <!-- THE SMOOTH SLIDER CONTAINER -->
-    <div class="slider-wrapper" :style="{ transform: `translateY(-${activeIndex * 100}vh)` }">
-      
-      <!-- SECTION 1: HOME (FITTED) -->
-      <section class="page-section home-hero-bg">
-        <div class="home-overlay">
-          <div class="home-content">
-            <div class="hero-top">
-              <h1>Find Your Future Home</h1>
-              <p>Discover exclusive luxury properties curated for your lifestyle.</p>
-              <div class="search-bar-ui">
-                <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
-                <div class="s-div"></div>
-                <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
-                <div class="s-div"></div>
-                <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
-                <v-btn class="s-btn" color="#2196f3">Search</v-btn>
-              </div>
+    <v-app class="page-wrapper-main" :class="{ 'light-mode': !isDarkMode }">
+        <!-- Navigation Bar -->
+        <nav class="navbar" :class="{ 'scrolled': activeIndex > 0 }">
+            <div class="logo">
+                <span class="t-bar"></span>
+                <span class="logo-text">REAL ESTATE<span>.</span></span>
             </div>
 
-            <div class="featured-properties-row">
-              <h3>Featured Properties</h3>
-              <div class="prop-grid">
-                <div v-for="(p, i) in featured" :key="i" class="prop-card">
-                  <div class="p-img"><img :src="p.img"><div class="p-price">${{p.price}}</div></div>
-                  <div class="p-info">
-                    <p>{{p.addr}}</p>
-                    <div class="p-specs">
-                      <span><v-icon size="14">mdi-bed-outline</v-icon> {{p.bed}}</span>
-                      <span><v-icon size="14">mdi-shower-outline</v-icon> {{p.bath}}</span>
-                      <span><v-icon size="14">mdi-arrow-expand-all</v-icon> {{p.sqft}}</span>
+            <ul class="nav-links d-none d-md-flex">
+                <li :class="{ 'active': activeIndex === 0 }"><a href="#" @click.prevent="scrollTo(0)">Home</a></li>
+                <li :class="{ 'active': activeIndex === 1 }"><a href="#" @click.prevent="scrollTo(1)">Log In</a></li>
+                <li :class="{ 'active': activeIndex === 2 }"><a href="#" @click.prevent="scrollTo(2)">About Us</a></li>
+            </ul>
+
+            <!-- Navbar Actions -->
+            <div class="nav-actions d-none d-md-flex align-center">
+                <!-- THEME SWITCH -->
+                <div class="theme-switch" @click="isDarkMode = !isDarkMode" :class="{ 'is-light': !isDarkMode }">
+                    <div class="switch-ball">
+                        <v-icon size="14" :icon="isDarkMode ? 'mdi-moon-waning-crescent' : 'mdi-white-balance-sunny'"></v-icon>
                     </div>
-                  </div>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- SECTION 2: ORIGINAL LOGIN/REGISTER -->
-      <section class="page-section auth-bg">
-        <div class="content-container">
-          <div class="content-inner">
-            <div class="hero-section">
-              <p class="tagline">START YOUR JOURNEY</p>
-              <h1>Unlock the homeowner <br /><span class="highlight">inside YOU</span>,<br /> Secure your <br />Dream Property</h1>
-              <p class="subtext">Get started with the most trusted platform to browse, tour, and buy your next home.</p>
-              <div class="hero-btns">
-                <v-btn variant="outlined" class="btn-outline">View Listings</v-btn>
-                <v-btn class="btn-primary glow">Book a tripping</v-btn>
-              </div>
+                <div class="nav-socials ml-4">
+                    <v-icon class="icon-btn mx-2" icon="mdi-twitter"></v-icon>
+                    <v-icon class="icon-btn mx-2" icon="mdi-facebook"></v-icon>
+                    <v-icon class="icon-btn-ig mx-2" icon="mdi-instagram"></v-icon>
+                </div>
             </div>
+        </nav>
 
-            <div class="form-section">
-              <transition name="form-fade" mode="out-in">
-                <div v-if="isLogin" class="form-card" key="login">
-                  <h2>Welcome <br />back<span>.</span></h2>
-                  <form @submit.prevent>
-                    <div class="input-group">
-                      <label>Email or Username</label>
-                      <v-text-field placeholder="juandelacruz@gmail.com" variant="outlined" hide-details class="custom-v-input"></v-text-field>
+        <!-- THE SMOOTH SLIDER CONTAINER -->
+        <div class="slider-wrapper" :style="{ transform: `translateY(-${activeIndex * 100}vh)` }">
+        
+        <!-- SECTION 1: HOME (FITTED) -->
+        <section class="page-section home-hero-bg">
+            <div class="home-overlay">
+                <div class="home-content">
+                    <div class="hero-top">
+                        <h1>Find Your Future Home</h1>
+                        <p>Discover exclusive luxury properties curated for your lifestyle.</p>
+                        <div class="search-bar-ui">
+                            <div class="s-item">Location <v-icon size="small">mdi-chevron-down</v-icon></div>
+                            <div class="s-div"></div>
+                            <div class="s-item">Property Type <v-icon size="small">mdi-chevron-down</v-icon></div>
+                            <div class="s-div"></div>
+                            <div class="s-item">Price Range <v-icon size="small">mdi-chevron-down</v-icon></div>
+                            <v-btn class="s-btn" color="#2196f3">Search</v-btn>
+                        </div>
                     </div>
-                    <div class="input-group">
-                      <label>Password</label>
-                      <v-text-field type="password" variant="outlined" hide-details class="custom-v-input" placeholder="Enter password"></v-text-field>
+
+                    <div class="featured-properties-row">
+                        <h3>Featured Properties</h3>
+                        <div class="prop-grid">
+                            <div v-for="(p, i) in featured" :key="i" class="prop-card">
+                                <div class="p-img"><img :src="p.img"><div class="p-price">${{p.price}}</div></div>
+                                <div class="p-info">
+                                    <p>{{p.addr}}</p>
+                                    <div class="p-specs">
+                                        <span><v-icon size="14">mdi-bed-outline</v-icon> {{p.bed}}</span>
+                                        <span><v-icon size="14">mdi-shower-outline</v-icon> {{p.bath}}</span>
+                                        <span><v-icon size="14">mdi-arrow-expand-all</v-icon> {{p.sqft}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="login-link">Don't have an account? <a href="#" @click.prevent="isLogin = false">Join now</a></p>
-                    <v-btn block class="btn-submit glow">Login Account</v-btn>
-                  </form>
                 </div>
-                <div v-else class="form-card" key="register">
-                  <h2>Create <br />new account<span>.</span></h2>
-                  <form @submit.prevent>
-                    <div class="input-group"><label>Username</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                    <div class="input-group"><label>Email</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                    <div class="input-group"><label>Password</label><v-text-field type="password" variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
-                    <p class="login-link">Already have an account? <a href="#" @click.prevent="isLogin = true">Log In</a></p>
-                    <v-btn block class="btn-submit glow">Create Account</v-btn>
-                  </form>
-                </div>
-              </transition>
             </div>
-          </div>
+        </section>
+
+        <!-- SECTION 2: ORIGINAL LOGIN/REGISTER -->
+        <section class="page-section auth-bg">
+            <div class="content-container">
+                <div class="content-inner">
+                    <div class="hero-section">
+                        <p class="tagline">START YOUR JOURNEY</p>
+                        <h1>Unlock the homeowner <br /><span class="highlight">inside YOU</span>,<br /> Secure your <br />Dream Property</h1>
+                        <p class="subtext">Get started with the most trusted platform to browse, tour, and buy your next home.</p>
+                        <div class="hero-btns">
+                            <v-btn variant="outlined" class="btn-outline">View Listings</v-btn>
+                            <v-btn class="btn-primary glow">Book a tripping</v-btn>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <transition name="form-fade" mode="out-in">
+                            <div v-if="isLogin" class="form-card" key="login">
+                                <h2>Welcome <br />back<span>.</span></h2>
+                                <form @submit.prevent>
+                                    <div class="input-group">
+                                        <label>Email or Username</label>
+                                        <v-text-field placeholder="juandelacruz@gmail.com" variant="outlined" hide-details class="custom-v-input"></v-text-field>
+                                    </div>
+                                    <div class="input-group">
+                                        <label>Password</label>
+                                        <v-text-field type="password" variant="outlined" hide-details class="custom-v-input" placeholder="Enter password"></v-text-field>
+                                    </div>
+                                    <p class="login-link">Don't have an account? <a href="#" @click.prevent="isLogin = false">Join now</a></p>
+                                    <v-btn block class="btn-submit glow">Login Account</v-btn>
+                                </form>
+                            </div>
+                            <div v-else class="form-card" key="register">
+                                <h2>Create <br />new account<span>.</span></h2>
+                                <form @submit.prevent>
+                                    <div class="input-group"><label>Username</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                                    <div class="input-group"><label>Email</label><v-text-field variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                                    <div class="input-group"><label>Password</label><v-text-field type="password" variant="outlined" hide-details class="custom-v-input"></v-text-field></div>
+                                    <p class="login-link">Already have an account? <a href="#" @click.prevent="isLogin = true">Log In</a></p>
+                                    <v-btn block class="btn-submit glow">Create Account</v-btn>
+                                </form>
+                            </div>
+                        </transition>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: ABOUT -->
+        <section class="page-section about-bg">
+            <h1 class="text-h2 font-weight-bold">About Us</h1>
+            <p class="subtext mt-4">Luxury real estate redefined.</p>
+        </section>
+
         </div>
-      </section>
-
-      <!-- SECTION 3: ABOUT -->
-      <section class="page-section about-bg">
-          <h1 class="text-h2 font-weight-bold">About Us</h1>
-          <p class="subtext mt-4">Luxury real estate redefined.</p>
-      </section>
-
-    </div>
-  </v-app>
+    </v-app>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      isDarkMode: true,
-      isLogin: true,
-      activeIndex: 0,
-      isScrolling: false,
-      featured: [
-        { addr: '123 Ocean View Drive, Malibu, CA', price: '12,500,000', bed: 6, bath: 7, sqft: '8,200', img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800' },
-        { addr: '456 Skyline Tower, New York, NY', price: '9,800,000', bed: 4, bath: 5, sqft: '5,500', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800' },
-        { addr: '789 Rolling Hills Estate, Aspen, CO', price: '15,000,000', bed: 8, bath: 9, sqft: '11,000', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800' }
-      ]
-    }
-  },
-  methods: {
-    handleWheel(e) {
-      if (this.isScrolling) return;
-      if (e.deltaY > 30 && this.activeIndex < 2) {
-        this.scrollTo(this.activeIndex + 1);
-      } else if (e.deltaY < -30 && this.activeIndex > 0) {
-        this.scrollTo(this.activeIndex - 1);
-      }
+    data() {
+        return {
+        isDarkMode: true,
+        isLogin: true,
+        activeIndex: 0,
+        isScrolling: false,
+        featured: [
+            { addr: '123 Ocean View Drive, Malibu, CA', price: '12,500,000', bed: 6, bath: 7, sqft: '8,200', img: 'https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800' },
+            { addr: '456 Skyline Tower, New York, NY', price: '9,800,000', bed: 4, bath: 5, sqft: '5,500', img: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800' },
+            { addr: '789 Rolling Hills Estate, Aspen, CO', price: '15,000,000', bed: 8, bath: 9, sqft: '11,000', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800' }
+        ]
+        }
     },
-    scrollTo(index) {
-      this.isScrolling = true;
-      this.activeIndex = index;
-      setTimeout(() => { this.isScrolling = false; }, 1000); 
+    methods: {
+        handleWheel(e) {
+            if (this.isScrolling) return;
+            if (e.deltaY > 30 && this.activeIndex < 2) {
+                this.scrollTo(this.activeIndex + 1);
+            } else if (e.deltaY < -30 && this.activeIndex > 0) {
+                this.scrollTo(this.activeIndex - 1);
+            }
+        },
+        scrollTo(index) {
+            this.isScrolling = true;
+            this.activeIndex = index;
+            setTimeout(() => { this.isScrolling = false; }, 1000); 
+        }
+    },
+    mounted() {
+        window.addEventListener('wheel', this.handleWheel, { passive: false });
+    },
+    unmounted() {
+        window.removeEventListener('wheel', this.handleWheel);
     }
-  },
-  mounted() {
-    window.addEventListener('wheel', this.handleWheel, { passive: false });
-  },
-  unmounted() {
-    window.removeEventListener('wheel', this.handleWheel);
-  }
 }
 </script>
 
