@@ -9,9 +9,9 @@
             </div>
 
             <ul class="nav-links d-none d-md-flex">
-                <li :class="{ 'active': activeIndex === 0 }"><a href="#" @click.prevent="scrollTo(0)">Home</a></li>
-                <li :class="{ 'active': activeIndex === 1 }"><a href="#" @click.prevent="scrollTo(1)">Log In</a></li>
-                <li :class="{ 'active': activeIndex === 2 }"><a href="#" @click.prevent="scrollTo(2)">About Us</a></li>
+                <li :class="{ 'active': activeIndex == 0 }"><a href="#" @click.prevent="scrollTo(0)">Home</a></li>
+                <li :class="{ 'active': activeIndex == 1 }"><a href="#" @click.prevent="scrollTo(1)">Log In</a></li>
+                <li :class="{ 'active': activeIndex == 2 }"><a href="#" @click.prevent="scrollTo(2)">About Us</a></li>
             </ul>
 
             <div class="nav-actions d-flex align-center">
