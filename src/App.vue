@@ -110,7 +110,6 @@
                         </div>
                     </div>
 
-                    <!-- Right Side: Original Forms -->
                     <div class="form-section">
                         <transition name="form-fade" mode="out-in">
                             <div v-if="isLogin" class="form-card" key="login">
